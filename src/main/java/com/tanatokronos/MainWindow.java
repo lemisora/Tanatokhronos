@@ -3,6 +3,15 @@ package com.tanatokronos;
  *
  * @author lemisora
  */
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.*;
+
 public class MainWindow extends javax.swing.JFrame {
     public double resultado;
     public TiempoMuerteCuerpo calculos = new TiempoMuerteCuerpo();
@@ -182,15 +191,51 @@ public class MainWindow extends javax.swing.JFrame {
         var tAmbiente = Double.parseDouble(temperaturaAmbiente);
         var tCuerpo = Double.parseDouble(temperaturaCuerpo);
         resultado = calculos.calculaTiempo(tCuerpo, tAmbiente);
-        System.out.print(resultado);
         var resultadoHoras = calculos.calculaHoras(resultado);
         jLabel7.setText(Double.toString(resultadoHoras) + " horas");
         jDialog1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        double tIn = calculos.gettInicial();
+        String temperaturaAmbiente = jTextField1.getText();
+        double tAmb = Double.parseDouble(temperaturaAmbiente);
+        //Apartado para crear los objetos para graficar
+        DefaultCategoryDataset dataset = crearDataset(tAmb, tIn);
+        JFreeChart chart = ChartFactory.createLineChart(
+                "Graficación - Tanatocronología", // Título del gráfico
+                "Horas", // Etiqueta del eje X
+                "Temperatura (°C)", // Etiqueta del eje Y
+                dataset, // Dataset
+                PlotOrientation.VERTICAL, // Orientación del gráfico
+                true, // Incluir leyenda
+                true, // Incluir tooltips
+                false // Incluir URLs
+        );
+        chart.setBackgroundPaint(Color.white);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+        Graficar.setContentPane(chartPanel);
+        Graficar.setSize(800, 600);
+        Graficar.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        Graficar.setVisible(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    //Métodos para la graficación
+    private DefaultCategoryDataset crearDataset(double min, double max) {
+        // Crear dataset y añadir series de datos
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        while(max > min){
+            var result = calculos.calculaTiempo(max, min);
+            var resultadoHoras = calculos.calculaHoras(result);
+            System.out.println(resultadoHoras);
+            int resHoras = (int)resultadoHoras;
+            dataset.addValue(max, "Temperatura del cuerpo", String.valueOf(resHoras));
+            max--;
+        }
+        return dataset;
+    }
 
     /**
      * @param args the command line arguments
