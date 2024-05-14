@@ -6,13 +6,14 @@ import java.util.Scanner;
  */
 
 public class TiempoMuerteCuerpo {
-    public double calculaTiempo(double tInicial, double tActual, double tAmbiente){
+    public double calculaTiempo(double tActual, double tAmbiente){
+        double tInicial = 37.5;
         double k = 0.0015;  //Constante de enfríamiento del cuerpo humano
         return -(1.0 / k) * Math.log((tActual - tAmbiente) / (tInicial - tAmbiente));
     }
     
-    public double calculaHoras(){
-        
+    public float calculaHoras(double tiempo_minutos){
+        return (float)tiempo_minutos/60;
     }
     
     public static void main(String[] args) {
