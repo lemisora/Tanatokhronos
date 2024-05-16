@@ -1,8 +1,4 @@
 package com.tanatokronos;
-/**
- *
- * @author lemisora
- */
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -89,7 +85,7 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tanatokronos");
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
+        //jLabel1.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Tanatokronos");
 
@@ -191,8 +187,9 @@ public class MainWindow extends javax.swing.JFrame {
         var tAmbiente = Double.parseDouble(temperaturaAmbiente);
         var tCuerpo = Double.parseDouble(temperaturaCuerpo);
         resultado = calculos.calculaTiempo(tCuerpo, tAmbiente);
-        var resultadoHoras = calculos.calculaHoras(resultado);
-        jLabel7.setText(Double.toString(resultadoHoras) + " horas");
+//        var resultadoHoras = calculos.calculaHoras(resultado);
+//        jLabel7.setText(Double.toString(resultadoHoras) + " horas");
+        jLabel7.setText(calculos.calcula_H_M_S(resultado));
         jDialog1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -229,7 +226,6 @@ public class MainWindow extends javax.swing.JFrame {
         while(max > min){
             var result = calculos.calculaTiempo(max, min);
             var resultadoHoras = calculos.calculaHoras(result);
-            System.out.println(resultadoHoras);
             int resHoras = (int)resultadoHoras;
             dataset.addValue(max, "Temperatura del cuerpo", String.valueOf(resHoras));
             max--;

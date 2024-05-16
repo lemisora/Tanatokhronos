@@ -1,9 +1,5 @@
 package com.tanatokronos;
-import java.util.Scanner;
-/**
- *
- * @author lemisora
- */
+
 public class TiempoMuerteCuerpo {
     private final double tInicial = 37.5;
 
@@ -17,6 +13,11 @@ public class TiempoMuerteCuerpo {
     }
     
     public float calculaHoras(double tiempo_minutos){
+//        System.out.println(calcula_H_M_S(tiempo_minutos));
         return (float)tiempo_minutos/60;
+    }
+
+    public String calcula_H_M_S(double tiempo_minutos){
+        return "Aprox. " +(int)tiempo_minutos/60+ " h "+(int)tiempo_minutos%60+" m";
     }
 }
