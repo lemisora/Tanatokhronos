@@ -228,7 +228,7 @@ public class MainWindow extends javax.swing.JFrame {
             var resultadoHoras = calculos.calculaHoras(result);
             int resHoras = (int)resultadoHoras;
             dataset.addValue(max, "Temperatura del cuerpo", String.valueOf(resHoras));
-            max--;
+            max-=0.25;
         }
         return dataset;
     }
